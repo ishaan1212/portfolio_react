@@ -1,11 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Particle from "../Particle";
-import Github from "./Github";
 import Techstack from "./Techstack";
 import Aboutcard from "./AboutCard";
-import laptopImg from "../../Assets/about.png";
+// import laptopImg from "../../Assets/about.png";
 import Toolstack from "./Toolstack";
+import Frameworks from "./Framework";
+import Future from "./Future";
+import Certifications from "./certifications";
 
 function About() {
   return (
@@ -14,7 +16,7 @@ function About() {
       <Container>
         <Row style={{ justifyContent: "center", padding: "10px" }}>
           <Col
-            md={7}
+            md={10}
             style={{
               justifyContent: "center",
               paddingTop: "30px",
@@ -22,16 +24,9 @@ function About() {
             }}
           >
             <h1 style={{ fontSize: "2.1em", paddingBottom: "20px" }}>
-              Know Who <strong className="purple">I'M</strong>
+              Lets know about <strong className="purple">Ishan</strong>
             </h1>
             <Aboutcard />
-          </Col>
-          <Col
-            md={5}
-            style={{ paddingTop: "120px", paddingBottom: "50px" }}
-            className="about-img"
-          >
-            <img src={laptopImg} alt="about" className="img-fluid" />
           </Col>
         </Row>
         <h1 className="project-heading">
@@ -45,7 +40,23 @@ function About() {
         </h1>
         <Toolstack />
 
-        <Github />
+        <h1 className="project-heading">
+          Worked on <strong className="purple">Frameworks</strong> and <strong className="purple">Libraries</strong>
+        </h1>
+        <Frameworks />
+
+        <h1 className="project-heading">
+          Learning the below <strong className="purple">Cloud Technologies</strong>
+        </h1> 
+        <Future />
+
+        <h1 className="project-heading">
+          Some <strong className="purple">Certifications</strong> that I have done
+        </h1>
+
+        <Certifications />
+
+        {/* <Github /> */}
       </Container>
     </Container>
   );

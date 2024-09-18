@@ -1,96 +1,115 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
-import leaf from "../../Assets/Projects/leaf.png";
-import emotion from "../../Assets/Projects/emotion.png";
-import editor from "../../Assets/Projects/codeEditor.png";
-import chatify from "../../Assets/Projects/chatify.png";
-import suicide from "../../Assets/Projects/suicide.png";
-import bitsOfCode from "../../Assets/Projects/blog.png";
+// Import images
+import adhd from "../../Assets/Projects/adhd.jpg"
+import ecohire from "../../Assets/Projects/ecohire.jpeg"
+import snapfit from "../../Assets/Projects/snapfit.png"
+import object from "../../Assets/Projects/object.jpg"
+import covid from "../../Assets/Projects/COVID AI.jpg"
+import custom from "../../Assets/Projects/custom.png"
+
+// Project data
+const projects = [
+  {
+    title: "ADHD Women Health Tracker",
+    imgPath: adhd,
+    description: "Interactive dashboard for women suffering from ADHD symptoms and health problems",
+    techStack: ["MongoDb", "JavaScript"],
+    ghLink: "https://github.com/madhavanvaidya/adhshe",
+  },
+  {
+    title: "Eco-Hire",
+    imgPath: ecohire,
+    description: "Web-based green job seeking platform to encouraging eco-conscious employment",
+    techStack: ["Python", "Django"],
+    ghLink: "https://github.com/ishaan1212/EcoHire",
+  },
+  {
+    title: "SnapFit",
+    imgPath: snapfit,
+    description: "Calorie counting app to overcome problem of both malnutrition and overnutrition",
+    techStack: ["Python", "Tensorflow", "Flask"],
+    ghLink: "https://github.com/ishaan1212/Snap-Fit/tree/master",
+  },
+  {
+    title: "Object Detection for Visually Impaired People",
+    imgPath: object,
+    description: "Object Detection using CNN and OpenCV along with auditory feedback",
+    techStack: ["Python", "Tensorflow","Keras", "OpenCV", "Machine Learning"],
+    ghLink: "https://github.com/ishaan1212/Object_Detection",
+  },
+  {
+    title: "Analysing CNN models on Covid19 dataset",
+    imgPath: covid,
+    description: "Covid19 detection using Chest-Xrays through different CNN models",
+    techStack: ["Python", "Tensorflow", "PyTorch", "Keras"],
+    ghLink: "https://github.com/ishaan1212/Analyzing_CNN_Models_onCOVID19",
+  },
+  {
+    title: "Custom Bash Terminal",
+    imgPath: custom,
+    description: "Custom Bash terminal implemented in C for Linux providing some fundamemtal shell functionalities",
+    techStack: ["C","Linux","Shell Scripting"],
+    ghLink: "https://github.com/soumyajit4419/Face_And_Emotion_Detection",
+  },
+];
+
+// Available tech stacks
+const techStacks = ["All", "Python","Django","JavaScript","C","Linux","Shell Scripting","PyTorch", "Keras", "Tensorflow", "MongoDb"];
 
 function Projects() {
+  const [selectedStack, setSelectedStack] = useState("All");
+
+  // Filter projects based on selected tech stack
+  const filteredProjects = selectedStack === "All"
+    ? projects
+    : projects.filter((project) => project.techStack.includes(selectedStack));
+
   return (
     <Container fluid className="project-section">
       <Particle />
       <Container>
         <h1 className="project-heading">
-          My Recent <strong className="purple">Works </strong>
+          My Recent <strong className="purple">Works</strong>
         </h1>
         <p style={{ color: "white" }}>
           Here are a few projects I've worked on recently.
         </p>
+        <p><strong className="purple">You can filter it based on the technoogies given</strong></p>
+
+        {/* Tech Stack Filter */}
+        <ButtonGroup className="mb-4">
+          {techStacks.map((stack) => (
+            <Button
+              key={stack}
+              variant={stack === selectedStack ? "primary" : "outline-primary"}
+              onClick={() => setSelectedStack(stack)}
+            >
+              {stack}
+            </Button>
+          ))}
+        </ButtonGroup>
+
+        {/* Display filtered projects */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={chatify}
-              isBlog={false}
-              title="Chatify"
-              description="Personal Chat Room or Workspace to share resources and hangout with friends build with react.js, Material-UI, and Firebase. Have features which allows user for realtime messaging, image sharing as well as supports reactions on messages."
-              ghLink="https://github.com/soumyajit4419/Chatify"
-              demoLink="https://chatify-49.web.app/"
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={bitsOfCode}
-              isBlog={false}
-              title="Bits-0f-C0de"
-              description="My personal blog page build with Next.js and Tailwind Css which takes the content from makdown files and renders it using Next.js. Supports dark mode and easy to write blogs using markdown."
-              ghLink="https://github.com/soumyajit4419/Bits-0f-C0de"
-              demoLink="https://blogs.soumya-jit.tech/"
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={editor}
-              isBlog={false}
-              title="Editor.io"
-              description="Online code and markdown editor build with react.js. Online Editor which supports html, css, and js code with instant view of website. Online markdown editor for building README file which supports GFM, Custom Html tags with toolbar and instant preview.Both the editor supports auto save of work using Local Storage"
-              ghLink="https://github.com/soumyajit4419/Editor.io"
-              demoLink="https://editor.soumya-jit.tech/"              
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={leaf}
-              isBlog={false}
-              title="Plant AI"
-              description="Used the plant disease dataset from Kaggle and trained a image classifer model using 'PyTorch' framework using CNN and Transfer Learning with 38 classes of various plant leaves. The model was successfully able to detect diseased and healthy leaves of 14 unique plants. I was able to achieve an accuracy of 98% by using Resnet34 pretrained model."
-              ghLink="https://github.com/soumyajit4419/Plant_AI"
-              demoLink="https://plant49-ai.herokuapp.com/"
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={suicide}
-              isBlog={false}
-              title="Ai For Social Good"
-              description="Using 'Natural Launguage Processing' for the detection of suicide-related posts and user's suicide ideation in cyberspace  and thus helping in sucide prevention."
-              ghLink="https://github.com/soumyajit4419/AI_For_Social_Good"
-              // demoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" <--------Please include a demo link here
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-            <ProjectCard
-              imgPath={emotion}
-              isBlog={false}
-              title="Face Recognition and Emotion Detection"
-              description="Trained a CNN classifier using 'FER-2013 dataset' with Keras and tensorflow backened. The classifier sucessfully predicted the various types of emotions of human. And the highest accuracy obtained with the model was 60.1%.
-              Then used Open-CV to detect the face in an image and then pass the face to the classifer to predict the emotion of a person."
-              ghLink="https://github.com/soumyajit4419/Face_And_Emotion_Detection"
-              // demoLink="https://blogs.soumya-jit.tech/"      <--------Please include a demo link here 
-            />
-          </Col>
+          {filteredProjects.map((project) => (
+            <Col md={4} className="project-card" key={project.title}>
+              <ProjectCard
+                imgPath={project.imgPath}
+                isBlog={false}
+                title={project.title}
+                description={project.description}
+                ghLink={project.ghLink}
+                demoLink={project.demoLink}
+              />
+            </Col>
+          ))}
         </Row>
       </Container>
     </Container>
   );
 }
 
-export default Projects;
+export default Projects
